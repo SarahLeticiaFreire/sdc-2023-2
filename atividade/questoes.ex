@@ -1,83 +1,3 @@
-defmodule Atividade do
-  # Questão 1
-  def exibir_ola_mundo do
-    IO.puts "Olá Mundo!"
-  end
-
-  # Questão 2
-  def exibir_nome do
-    IO.puts "Agora, digite seu nome: "
-    nome = IO.gets("") |> String.trim()
-    IO.puts "Olá #{nome}!"
-  end
-
-  # Questão 3
-  def exibir_nome_e_idade do
-    IO.puts "Digite seu nome: "
-    nome = IO.gets("") |> String.trim
-
-    IO.puts "Digite sua data de nascimento no formato DD MM AAAA: "
-    data_nascimento_str = IO.gets("") |> String.trim()
-    [dia_str, mes_str, ano_str] = String.split(data_nascimento_str, ~r/\s+/)
-
-    {dia, mes, ano} =
-      {String.to_integer(dia_str), String.to_integer(mes_str), String.to_integer(ano_str)}
-
-    idade = Date.utc_today().year() - ano
-
-    IO.puts "Olá #{nome}, você tem #{idade} anos."
-  end
-
-  # Questão 4
-  def exibir_nome_peso_e_altura do
-    IO.puts "Digite seu nome: "
-    nome = IO.gets("") |> String.trim
-
-    IO.puts "Digite seu peso em Kg (apenas números positivos): "
-    peso_kg = obter_peso_valido()
-
-    IO.puts "Digite sua altura em centímetros (no formato 1,70 cm): "
-    altura_cm = obter_altura_valida()
-
-    altura_m = altura_cm / 100.0
-    imc = calcular_imc(peso_kg, altura_m)
-
-    IO.puts "Olá #{nome}, seu IMC é de #{imc}."
-  end
-
-  defp obter_peso_valido do
-    case String.trim(IO.gets("")) |> String.to_float() do
-      nil ->
-        IO.puts "Peso inválido. Digite novamente."
-        obter_peso_valido()
-      peso when peso >= 0 -> peso
-       _ ->
-        IO.puts "Peso negativo. Digite novamente."
-        obter_peso_valido()
-      end
-  end
-
-  defp obter_altura_valida do
-    case String.trim(IO.gets("")) do
-      ~r/^\d,\d{2}\s*cm$/ -> String.to_float(String.replace(~r/,/, ".", trim_leading: true))
-      _ ->
-        IO.puts "Altura inválida. Digite novamente no formato 1,70 cm."
-        obter_altura_valida()
-    end
-  end
-
-  defp calcular_imc(peso, altura) do
-    peso / (altura * altura)
-  end
-
-
-end
-
-Atividade.exibir_ola_mundo()
-Atividade.exibir_nome()
-Atividade.exibir_nome_e_idade()
-Atividade.exibir_nome_peso_e_altura()
-
 # Questões 7 e 8
 defmodule SistemaPoligono do
   defstruct pontos: %{}
@@ -139,7 +59,7 @@ defmodule SistemaPoligono do
 
   defp listar(sistema) do
     IO.puts "Função Listar"
-    Enum.each(sistema.pontos, fn {k, v} -> IO.puts "#{k}: #{inspect(v)}" end)
+    Enum.each(sistema.pontos, fn {x, y} -> IO.puts "#{x}: #{inspect(y)}" end)
     loop(sistema)
   end
 
